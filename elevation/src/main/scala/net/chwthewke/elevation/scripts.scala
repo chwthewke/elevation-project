@@ -26,4 +26,13 @@ object scripts {
     data.tile.foldAt( 0d )( ( acc, c ) => acc + g.scaledVolumeOver( elev ).tupled( c ) ) / Geom.scaledArea
   }
 
+  def landMassOver( elev: Double, data: SinglebandGeoTiff = Load.bedrockDown ): Double = {
+    val g = Geom( data.tile )
+
+    def scaledAreaOver( col: Int, row: Int, value: Int ): Double =
+      if (value > elev) g.scaledCellArea( row ) else 0d
+
+    data.tile.foldAt( 0d )( ( acc, c ) => acc + (scaledAreaOver _).tupled( c ) ) / Geom.scaledArea
+  }
+
 }
