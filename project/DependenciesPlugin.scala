@@ -23,6 +23,8 @@ object DependenciesPlugin extends AutoPlugin {
     val cats: Deps      = group( "org.typelevel", catsVersion )( "cats-core" )()
     val catsExtra: Deps = group( "org.typelevel", catsVersion )( "cats-free", "cats-macros" )()
 
+    val machinist = Seq( "org.typelevel" %% "machinist" % "0.6.2" )
+
     val mouse: Deps = group( "org.typelevel", "0.17" )( "mouse" )()
 
     val scalaArm: Deps = group( "com.jsuereth", "2.0" )( "scala-arm" )()
@@ -108,30 +110,32 @@ object DependenciesPlugin extends AutoPlugin {
     ) ++
       cats ++
       catsExtra ++
-      mouse ++
-      scalaArm ++
-      monocle ++
-      circe ++
-      akkaHttp ++
-      sslConfigCore ++
-      reactiveStreams ++
-      enumeratum ++
-      shapeless ++
-      java8compat ++
-      scalaLangModules ++
-      logging ++
-      pureconfig ++
-      slick ++
-      slickCodegen ++
-      postgresql ++
-      h2database ++
-      flywayCore ++
-      univocity ++
-      jose4j ++
-      scalatest ++
-      scalacheck ++
-      autoDiff ++
-      gatling
+      machinist
+//  ++
+//  mouse ++
+//    scalaArm ++
+//    monocle ++
+//    circe ++
+//    akkaHttp ++
+//    sslConfigCore ++
+//    reactiveStreams ++
+//    enumeratum ++
+//    shapeless ++
+//    java8compat ++
+//    scalaLangModules ++
+//    logging ++
+//    pureconfig ++
+//    slick ++
+//    slickCodegen ++
+//    postgresql ++
+//    h2database ++
+//    flywayCore ++
+//    univocity ++
+//    jose4j ++
+//    scalatest ++
+//    scalacheck ++
+//    autoDiff ++
+//    gatling
 
   class GroupOps( val self: Seq[ModuleID] ) extends AnyVal {
     def exclude( org: String, name: String ): Seq[ModuleID] =

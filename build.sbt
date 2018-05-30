@@ -8,11 +8,17 @@ scalaVersion      in ThisBuild := "2.11.12"
 conflictManager   in ThisBuild := ConflictManager.strict
 // format: on
 
-enablePlugins( FormatPlugin, ScalacPlugin )
+enablePlugins( FormatPlugin, DependenciesPlugin )
+
+val geotrellis = depsGroup( "org.locationtech.geotrellis", "1.2.1" )( "geotrellis-raster" )()
 
 val `elevation` = project
-  .settings( libraryDependencies ++= scalatest )
-  .enablePlugins( SbtBuildInfo )
+  .settings(
+    libraryDependencies ++= cats ++ scalatest ++ geotrellis,
+    initialCommands in console +=
+      Seq( "import net.chwthewke.elevation._", "import geotrellis.raster._" ).mkString( "\n" )
+  )
+  .enablePlugins( SbtBuildInfo, ScalacPlugin )
 
 val `elevation-project` = project
   .in( file( "." ) )
